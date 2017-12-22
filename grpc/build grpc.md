@@ -77,11 +77,32 @@ git clone https://github.com/abseil/abseil-cpp
 ::注意cares放的路径特别点，是third_party/cares/cares里
 
 ::进入目录后进行使用cmake生成sln
-%comspec% /k "d:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvars32.bat"
+%comspec% /k "D:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsall.bat" x86
+
+::或者
+
+%comspec% /k "D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\vcvarsall.bat" x86
+
 cd E:\LIBS\gRPC\grpc
 E:
 mkdir .build
 cd .build
-cmake .. -G "Visual Studio 15 2017" -DCMAKE_BUILD_TYPE=Debug
+::cmake .. -G "Visual Studio 15 2017" -DCMAKE_BUILD_TYPE=Debug
+cmake .. -G "Visual Studio 12 2013" -DCMAKE_BUILD_TYPE=Debug
 cmake --build .
 ```
+
+
+
+```
+::选取最新的release版本
+git clone --branch v1.8.2 https://github.com/grpc/grpc.git
+cd grpc
+::把.gitmodules中的https://boringssl.googlesource.com/boringssl改成https://github.com/airtimemedia/boringssl.git
+::修改WORKSPACE中的url = "https://boringssl.googlesource.com/boringssl/+archive/886e7d75368e3f4fab3f4d0d3584e4abfc557755.tar.gz",为url = "https://github.com/airtimemedia/boringssl/archive/f9f31ae338e204b9b4df2c4894bd3f4065e0bb04.tar.gz"----这个值通过commit页面的copy the full SHA得到
+
+
+::更新依赖
+git submodule update --init
+```
+
